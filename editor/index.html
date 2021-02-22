@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Editor</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script async=false src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+        <script src="../script/jszip.min.js"></script>
+        <script src="../script/FileSaver.min.js"></script>
+        <script src="../script/script.js"></script>
+        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="icon" href="../images/favicon.ico" />
+    </head>
+    <body id="editor">
+        <div id="controls1">
+            <a href="/"><img src="../images/logo-high-beta.png" id="logo-sm" /></a>
+            <button type="button" class="btn btn-primary" onclick="properties.showAdd()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+            </button>
+            <button type="button" class="btn btn-danger" onclick="selection.delete()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                </svg>
+            </button>
+            <button type="button" class="btn btn-success" onclick="properties.showDownload()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+            </button>
+            <button type="button" class="btn btn-dark" onclick="properties.showUpload()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                </svg>
+            </button>
+
+            <p id="debug" style="float:right;"></p>
+        </div>
+        <div id="controls2">
+            <h4 id="prop0">Properties</h4>
+            <table id="propTable">
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" class="form-control" id="prop1" onchange="properties.set()"></td>
+                </tr>
+                <tr>
+                    <th>X</th>
+                    <td><input type="number" class="form-control" id="prop2" onchange="properties.set()" step="any"></td>
+                </tr>
+                <tr>
+                    <th>Y</th>
+                    <td><input type="number" class="form-control" id="prop3" onchange="properties.set()" step="any"></td>
+                </tr>
+                <tr>
+                    <th>Z</th>
+                    <td><input type="number" class="form-control" id="prop4" onchange="properties.set()"></td>
+                </tr>
+                <tr>
+                    <th>X Scale</th>
+                    <td><input type="number" class="form-control" id="prop5" onchange="properties.set()" step=".1"></td>
+                </tr>
+                <tr>
+                    <th>Y Scale</th>
+                    <td><input type="number" class="form-control" id="prop6" onchange="properties.set()" step=".1"></td>
+                </tr>
+                <tr>
+                    <th>Rotation</th>
+                    <td><input type="number" class="form-control" id="prop7" onchange="properties.set()"></td>
+                </tr>
+            </table>
+            <hr/>
+            <h4 style="float:left; margin-left:20px; margin-top: 5px;">Colliders</h4>
+            <button type="button" class="btn btn-success" style="float:right;margin-right: 10px;" onclick="collisions.add()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+            </button>
+            <br />
+            <ul class="list-group" id="colliders">
+            </ul>
+            
+            <hr/>
+            <h4>Requirements</h4>
+            <ul class="list-group" id="req-assets">
+            </ul>
+        </div>
+        <div id="controls3">
+            <button type="button" onclick="properties.hideAdd()" class="xButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            <h4>Add Asset:</h4>
+            <input type="search" class="form-control" id="add-search"/>
+            <ul class="list-group" id="add-assets">
+                
+            </ul>
+        </div>
+
+        <div id="controls4">
+            <button type="button" onclick="properties.hideDownload()" class="xButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            <h4>Download</h4>
+            <input type="text" class="form-control" id="mapName" placeholder="Map Name" maxlength="25">
+            <button class="btn btn-success" onclick="map.download()">Download</button>
+            <a class="btn btn-primary" href="../maps?upload=1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+                  </svg>
+            </a>
+        </div>
+
+        <div id="controls5">
+            <button type="button" onclick="properties.hideUpload()" class="xButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            <h4>Custom Asset</h4>
+            <p id="warning" style="color:red;display:none;">WARNING: You are at or above 100 custom assets. Automatic saving in-browser may be unstable if not unusable beyond this point.</p>
+            <input type="file" accept="image/*" name="image" id="customFile" onchange="map.checkFile(event)" />
+            <button id="addButton" class="btn btn-success" onclick="map.addCustom()" disabled>Add Asset</button>
+        </div>
+    </body>
+</html>
