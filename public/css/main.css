@@ -1,0 +1,200 @@
+body,* {
+    margin:0;
+    border:0;
+    padding:0;
+    font-family: 'Bahnschrift';
+}
+body {
+    height:100vh;
+}
+hr {
+    clear: both;
+}
+#header {
+    text-align: center;
+    background-color: #f2f2f2;
+    min-height: 300px;
+    width: 100%;
+}
+#body {
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+#editor {
+    overflow: hidden;
+}
+#maps {
+    text-align: center;
+    padding-top:calc(85vh/2);
+    background-color: #f2f2f2
+}
+#footer {
+    background-color: #f2f2f2;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    min-height: 60px;
+    padding-top: 20px;
+    margin-top:20px !important;
+    display: flex;
+}
+
+#footer a {
+    margin-left: 30px;
+}
+
+#logo {
+    width: 500px;
+    max-width: 80%;
+    margin-top: 100px;
+}
+#logo-sm {
+    width: 200px;
+}
+#header .btn {
+    margin-top: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+}
+#body ol {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+#controls1 {
+    background-color: #f2f2f2;
+    height: 60px;
+    padding: 10px;
+}
+
+#controls2 {
+    background-color: #f2f2f2;
+    width: 300px;
+    height: calc(100vh - 60px);
+    right: 0;
+    position: fixed;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+#controls3 {
+    background-color: #f2f2f2;
+    position: absolute;
+    width: 300px;
+    height: 600px;
+    top:calc(50vh - 300px);
+    left:calc(50vw - 150px);
+    text-align: center;
+    padding:10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#controls4 {
+    background-color: #f2f2f2;
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    top:calc(50vh - 100px);
+    left:calc(50vw - 150px);
+    text-align: center;
+    padding:10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#controls5 {
+    background-color: #f2f2f2;
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    top:calc(50vh - 100px);
+    left:calc(50vw - 150px);
+    text-align: center;
+    padding:10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#controls4 .btn {
+    margin-top: 10px;
+}
+
+#controls5 .btn {
+    margin-top: 10px;
+    width: 200px;
+}
+
+#propTable {
+    margin: 10px;
+}
+#propTable th {
+    width: 30%;
+}
+#propTable td {
+    width: 70%;
+}
+
+#colliders {
+    margin: 10px;
+    margin-top:20px;
+}
+
+#req-assets {
+    margin: 10px;
+}
+
+.xButton {
+    position:absolute;
+    right:10px;
+}
+#add-assets {
+    overflow-y: scroll;
+    height:480px;
+    border-radius: 5px;
+}
+#add-search {
+    margin-bottom: 10px;
+}
+#leftshot {
+    float:left;
+    width:50%;
+    margin-bottom: 20px;
+}
+#rightshot {
+    float:right;
+    width:50%;
+    margin-bottom: 20px;
+}
+.sabatage {
+    color: rgb(190, 7, 44);
+}
+
+.sabatage:hover {
+    color: rgb(190, 7, 44);
+}
+
+.task {
+    color: rgb(7, 53, 190);
+}
+
+.task:hover {
+    color: rgb(7, 53, 190);
+}
+
+.util {
+    color: rgb(7, 190, 62);
+}
+
+.util:hover {
+    color: rgb(7, 190, 62);
+}
+
+.btn-edit {
+    padding-top:0px;
+    height:26px;
+    font-size:16px;
+    float:right;
+    margin-left:5px;
+}
